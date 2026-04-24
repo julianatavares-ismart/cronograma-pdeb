@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma Projeto Pedagógico 2026 · Mai–Nov</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D2240;
+  --blue: #0078C8;
+  --cyan: #00AEEF;
+  --teal: #00BFA5;
+  --green: #4CAF50;
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --purple: #7C3AED;
+  --rose: #E91E8C;
+  --surface: #FFFFFF;
+  --bg: #F0F4F8;
+  --border: #E2E8F0;
+  --text: #1A2332;
+  --muted: #64748B;
+  --light: #F8FAFC;
+
+  /* tipo de evento */
+  --cor-tira: #0078C8;
+  --cor-touch: #00BFA5;
+  --cor-acomp: #7C3AED;
+  --cor-coord: #E91E8C;
+  --cor-conv: #F59E0B;
+  --cor-ciclo-8ef: #F97316;
+  --cor-ciclo-9ef: #7C3AED;
+  --cor-ciclo-1em: #E91E8C;
+  --cor-ciclo-2em: #EAB308;
+  --cor-ciclo-3em: #22C55E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* ── NAV ── */
+.header {
+  background: var(--navy);
+  color: #fff;
+  padding: 20px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.header-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+.header-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; font-weight: 400; }
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+.tab-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  padding: 7px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: var(--cyan);
+  color: #fff;
+}
+
+/* ── LAYOUT ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEGENDA ── */
+.legenda-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  align-items: center;
+}
+.legenda-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-right: 4px;
+}
+.leg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text);
+}
+.leg-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── MONTHLY VIEW ── */
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.month-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.month-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.month-name { font-size: 16px; font-weight: 700; }
+.month-year { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+/* mini calendar grid */
+.mini-cal {
+  padding: 12px;
+}
+.mini-cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 6px;
+}
+.day-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding: 2px 0;
+}
+.day-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 5px;
+  position: relative;
+  cursor: default;
+}
+.day-cell.empty { background: transparent; }
+.day-cell.has-event {
+  color: #fff;
+  font-weight: 700;
+}
+.day-cell.multi-event {
+  background: linear-gradient(135deg, var(--c1) 50%, var(--c2) 50%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 9px;
+}
+.day-cell .dot-strip {
+  position: absolute;
+  bottom: 1px;
+  display: flex;
+  gap: 1px;
+}
+.day-cell .dot-strip span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+/* events list under calendar */
+.month-events {
+  border-top: 1px solid var(--border);
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.event-pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+.event-pill-bar {
+  width: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+  min-height: 16px;
+}
+.event-pill-content { flex: 1; }
+.event-pill-date {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+.event-pill-name { font-size: 11.5px; font-weight: 500; color: var(--text); }
+.event-pill-tag {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* special month for julho */
+.convencao-banner {
+  margin: 8px 14px 0;
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  border: 1px solid #F59E0B;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #92400E;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.convencao-banner::before {
+  content: '⚠';
+  font-size: 13px;
+}
+
+/* ── CICLOS section in month card ── */
+.ciclos-strip {
+  border-top: 1px solid var(--border);
+  padding: 8px 14px 6px;
+}
+.ciclos-strip-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.ciclo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  margin: 2px 3px 2px 0;
+  color: #fff;
+}
+
+/* ── TABLE VIEW ── */
+.table-section { margin-bottom: 32px; }
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--cyan);
+  display: inline-block;
+}
+
+.ev-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.ev-table th {
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.ev-table td {
+  padding: 9px 14px;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.ev-table tr:last-child td { border-bottom: none; }
+.ev-table tr:hover td { background: var(--light); }
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+}
+.recurrence-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.recurrence-badge.recorrente {
+  background: #DCFCE7;
+  color: #166534;
+  border-color: #BBF7D0;
+}
+.recurrence-badge.pontual {
+  background: #FEF3C7;
+  color: #92400E;
+  border-color: #FDE68A;
+}
+.recurrence-badge.confirmar {
+  background: #FEE2E2;
+  color: #991B1B;
+  border-color: #FECACA;
+}
+
+/* ── CICLOS VIEW ── */
+.ciclos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grade-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.grade-block-header {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.grade-block-header span { font-size: 10px; font-weight: 400; opacity: 0.8; }
+.grade-block-body { padding: 12px 16px; }
+
+.ciclo-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ciclo-row:last-child { border-bottom: none; }
+.ciclo-period {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  min-width: 60px;
+  padding-top: 2px;
+}
+.ciclo-info { flex: 1; }
+.ciclo-name { font-size: 12.5px; font-weight: 600; color: var(--text); }
+.ciclo-desc { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.ciclo-num {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.event-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.event-row:last-child { border-bottom: none; }
+.event-period {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  min-width: 60px;
+  padding-top: 2px;
+}
+.event-name-small { font-size: 11.5px; color: var(--text); }
+
+/* ── WEEKLY SUMMARY ── */
+.weekly-section { margin-bottom: 24px; }
+.week-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px 6px 0 0;
+  letter-spacing: 0.5px;
+}
+.week-body {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.week-day {
+  border-right: 1px solid var(--border);
+  padding: 8px;
+  min-height: 70px;
+}
+.week-day:last-child { border-right: none; }
+.week-day-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.week-day-label .dn { color: var(--text); }
+.week-ev {
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* ── responsive ── */
+@media (max-width: 900px) {
+  .months-grid { grid-template-columns: repeat(2, 1fr); }
+  .ciclos-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .months-grid { grid-template-columns: 1fr; }
+  .tabs { display: none; }
+}
+
+/* animation */
+.tab-panel.active {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-title">Cronograma · Projeto Pedagógico PDEB 2026</div>
+    <div class="header-sub">Maio → Novembro · Ismart I&D</div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('mensal')">Visão Mensal</button>
+    <button class="tab-btn" onclick="showTab('tabela')">Tabela Consolidada</button>
+    <button class="tab-btn" onclick="showTab('ciclos')">Ciclos por Série</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 1: VISÃO MENSAL -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-mensal" class="tab-panel active">
+
+  <div class="legenda-bar">
+    <span class="legenda-title">Legenda</span>
+    <div class="leg"><div class="leg-dot" style="background:var(--cor-tira)"></div> Tira-dúvidas PP</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--cor-touch)"></div> Touchpoint</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--cor-acomp)"></div> Acompanhamento PP</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--cor-coord)"></div> Reunião Coord. EB</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--cor-conv)"></div> Convenção Ismart</div>
+  </div>
+
+  <div class="months-grid">
+
+    <!-- ───── MAIO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Maio</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Ciclos ativos</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-8ef)">8ºEF C2</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF C2</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM C2</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-2em)">2ºEM C2</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM C2</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">04/05 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+            <div class="event-pill-tag">1ª segunda do mês</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">07/05 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+            <div class="event-pill-tag">1ª quinta do mês · orientadores/coord.</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">06, 13, 20, 27/05 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×4)</div>
+            <div class="event-pill-tag">Toda quarta · operacional do projeto</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">25/05 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+            <div class="event-pill-tag">Última segunda · Juliana, Vanessa, coord.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── JUNHO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Junho</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Ciclos ativos / eventos especiais</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM · Cine-Debate</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM · Orient. Prof.</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF · Bat. Vest.</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM C2</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">01/06 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">04/06 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">03, 10, 17, 24/06 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×4)</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">29/06 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── JULHO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Julho</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="convencao-banner">Convenção Ismart · semana a confirmar · equipe em SP</div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Eventos especiais</div>
+        <span class="ciclo-tag" style="background:#1E40AF">UMLO (todos os anos)</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM · Enc. Vestibulandos</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">06/07 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">02/07 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">01, 08, 15, 22, 29/07 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×5)</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">27/07 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+          </div>
+        </div>
+        <div class="event-pill" style="background:#FEF3C7; border:1px solid #F59E0B;">
+          <div class="event-pill-bar" style="background:var(--cor-conv)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date" style="color:#92400E">Semana a confirmar</div>
+            <div class="event-pill-name" style="color:#78350F">Convenção Ismart · SP</div>
+            <div class="event-pill-tag" style="color:#92400E">Oportunidade de treinamento presencial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── AGOSTO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Agosto</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Ciclos ativos</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-8ef)">8ºEF C3</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF C3</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM C3</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-2em)">2ºEM C3</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM C3</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-2em)">2ºEM · Univ. Responde</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">03/08 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">06/08 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">05, 12, 19, 26/08 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×4)</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">31/08 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── SETEMBRO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Setembro</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Eventos especiais</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM · Trilha Tech</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">07/09 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">03/09 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">02, 09, 16, 23, 30/09 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×5)</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">28/09 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── OUTUBRO ───── -->
+    <div class="month-card">
+      <div class="month-header">
+        <span class="month-name">Outubro</span>
+        <span class="month-year">2026</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Ciclos ativos / eventos</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-8ef)">8ºEF C4</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF C4</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM C4</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-2em)">2ºEM C4</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF · Vestibulinho</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM · Vestibulares</span>
+      </div>
+      <div class="month-events">
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">05/10 · Seg</div>
+            <div class="event-pill-name">Tira-dúvidas PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">01/10 · Qui</div>
+            <div class="event-pill-name">Acompanhamento PP</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">07, 14, 21, 28/10 · Qua</div>
+            <div class="event-pill-name">Touchpoint (×4)</div>
+          </div>
+        </div>
+        <div class="event-pill">
+          <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+          <div class="event-pill-content">
+            <div class="event-pill-date">26/10 · Seg</div>
+            <div class="event-pill-name">Reunião coord. EB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── NOVEMBRO ───── -->
+    <div class="month-card" style="grid-column: 1 / -1;">
+      <div class="month-header">
+        <span class="month-name">Novembro</span>
+        <span class="month-year">2026 · Último mês do ciclo</span>
+      </div>
+      <div class="ciclos-strip">
+        <div class="ciclos-strip-title">Entregas e eventos finais</div>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-8ef)">8ºEF · Apresentação Meu Alicerce</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-9ef)">9ºEF · Apresentação Meu EM + Dev. Vest.</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-1em)">1ºEM · ENEM</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-2em)">2ºEM · ENEM + Vest. Treineiro</span>
+        <span class="ciclo-tag" style="background:var(--cor-ciclo-3em)">3ºEM · ENEM + Vestibulares</span>
+      </div>
+      <div class="month-events">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+          <div class="event-pill">
+            <div class="event-pill-bar" style="background:var(--cor-tira)"></div>
+            <div class="event-pill-content">
+              <div class="event-pill-date">02/11 · Seg</div>
+              <div class="event-pill-name">Tira-dúvidas PP</div>
+            </div>
+          </div>
+          <div class="event-pill">
+            <div class="event-pill-bar" style="background:var(--cor-acomp)"></div>
+            <div class="event-pill-content">
+              <div class="event-pill-date">05/11 · Qui</div>
+              <div class="event-pill-name">Acompanhamento PP</div>
+            </div>
+          </div>
+          <div class="event-pill">
+            <div class="event-pill-bar" style="background:var(--cor-touch)"></div>
+            <div class="event-pill-content">
+              <div class="event-pill-date">04, 11, 18, 25/11 · Qua</div>
+              <div class="event-pill-name">Touchpoint (×4)</div>
+            </div>
+          </div>
+          <div class="event-pill">
+            <div class="event-pill-bar" style="background:var(--cor-coord)"></div>
+            <div class="event-pill-content">
+              <div class="event-pill-date">30/11 · Seg</div>
+              <div class="event-pill-name">Reunião coord. EB · última do ano</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /tab-mensal -->
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 2: TABELA CONSOLIDADA -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-tabela" class="tab-panel">
+
+  <div class="table-section">
+    <div class="section-title">Eventos Recorrentes · Maio → Novembro</div>
+    <table class="ev-table">
+      <thead>
+        <tr>
+          <th>Evento</th>
+          <th>Datas (Mai→Nov)</th>
+          <th>Tipo</th>
+          <th>Recorrência</th>
+          <th>Objetivo / Participantes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tira-dúvidas PP</strong></td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px">
+            04/05 · 01/06 · 06/07 · 03/08 · 07/09 · 05/10 · 02/11
+          </td>
+          <td><span class="type-badge" style="background:var(--cor-tira)">Gestão</span></td>
+          <td><span class="recurrence-badge recorrente">↺ Mensal · 1ª Seg</span></td>
+          <td style="color:var(--muted);font-size:12px">Dúvidas sobre o projeto</td>
+        </tr>
+        <tr>
+          <td><strong>Touchpoint Operacional</strong></td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px">
+            Toda quarta · a partir de 06/05<br>
+            <span style="color:var(--muted)">~27 ocorrências no período</span>
+          </td>
+          <td><span class="type-badge" style="background:var(--cor-touch)">Operacional</span></td>
+          <td><span class="recurrence-badge recorrente">↺ Semanal · Toda Qua</span></td>
+          <td style="color:var(--muted);font-size:12px">Troca sobre o andamento do projeto</td>
+        </tr>
+        <tr>
+          <td><strong>Acompanhamento PP</strong></td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px">
+            07/05 · 04/06 · 02/07 · 06/08 · 03/09 · 01/10 · 05/11
+          </td>
+          <td><span class="type-badge" style="background:var(--cor-acomp)">Pedagógico</span></td>
+          <td><span class="recurrence-badge recorrente">↺ Mensal · 1ª Qui</span></td>
+          <td style="color:var(--muted);font-size:12px">Escuta com orientadores e coordenadores</td>
+        </tr>
+        <tr>
+          <td><strong>Reunião coord. EB</strong></td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px">
+            25/05 · 29/06 · 27/07 · 31/08 · 28/09 · 26/10 · 30/11
+          </td>
+          <td><span class="type-badge" style="background:var(--cor-coord)">Estratégico</span></td>
+          <td><span class="recurrence-badge recorrente">↺ Mensal · Última Seg</span></td>
+          <td style="color:var(--muted);font-size:12px">Juliana, Vanessa e coordenadores de EB</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-section">
+    <div class="section-title">Eventos Pontuais e Especiais</div>
+    <table class="ev-table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Evento</th>
+          <th>Série</th>
+          <th>Tipo</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Junho</td>
+          <td><strong>Bate-papo Vestibulinho</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-9ef);font-size:10px">9ºEF</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Junho</td>
+          <td><strong>Cine-Debate</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-1em);font-size:10px">1ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Junho</td>
+          <td><strong>Evento Orientação Profissional</strong> · online</td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-1em);font-size:10px">1ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Julho</td>
+          <td><strong>UMLO</strong></td>
+          <td><span style="font-size:11px;color:var(--muted)">Todos os anos</span></td>
+          <td><span class="type-badge" style="background:#1E40AF">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Julho</td>
+          <td><strong>Encontro de Vestibulandos</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-3em);font-size:10px">3ºEM</span></td>
+          <td><span class="type-badge" style="background:#1E40AF">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr style="background:#FFFBEB">
+          <td style="font-family:'DM Mono',monospace;color:#92400E"><strong>Semana a def.</strong></td>
+          <td><strong>Convenção Ismart</strong> · equipe toda em SP</td>
+          <td><span style="font-size:11px;color:var(--muted)">I&D + equipes</span></td>
+          <td><span class="type-badge" style="background:var(--cor-conv)">Institucional</span></td>
+          <td><span class="recurrence-badge confirmar">⚠ A confirmar</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Agosto</td>
+          <td><strong>Universitário Responde</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-2em);font-size:10px">2ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Setembro</td>
+          <td><strong>Evento Trilha Tech</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-1em);font-size:10px">1ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Evento</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Outubro</td>
+          <td><strong>Vestibulinho</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-9ef);font-size:10px">9ºEF</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Acadêmico</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Outubro→Nov</td>
+          <td><strong>Vestibulares</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-3em);font-size:10px">3ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Acadêmico</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Novembro</td>
+          <td><strong>ENEM</strong></td>
+          <td><span style="font-size:11px;color:var(--muted)">1ºEM · 2ºEM · 3ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Acadêmico</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Novembro</td>
+          <td><strong>Vestibulares Treineiro</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-2em);font-size:10px">2ºEM</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Acadêmico</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace">Novembro</td>
+          <td><strong>Devolutiva Vestibulinho</strong></td>
+          <td><span class="type-badge" style="background:var(--cor-ciclo-9ef);font-size:10px">9ºEF</span></td>
+          <td><span class="type-badge" style="background:var(--navy)">Pedagógico</span></td>
+          <td><span class="recurrence-badge pontual">▸ Pontual</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /tab-tabela -->
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 3: CICLOS POR SÉRIE -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-ciclos" class="tab-panel">
+
+  <div style="margin-bottom:20px;font-size:13px;color:var(--muted);">
+    Visão dos ciclos e eventos especiais por série, extraída dos Calendários Acadêmicos PDEB 2026.
+  </div>
+
+  <div class="ciclos-grid">
+
+    <!-- 8º EF -->
+    <div class="grade-block">
+      <div class="grade-block-header" style="background:var(--cor-ciclo-8ef)">
+        8º Ano · EF <span>Ensino Fundamental</span>
+      </div>
+      <div class="grade-block-body">
+        <div class="ciclo-row">
+          <div class="ciclo-period">Fev→Mar</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-8ef)">CICLO 1</div>
+            <div class="ciclo-name">Adaptação e Pertencimento</div>
+            <div class="ciclo-desc">Descobrir o Ismart e fazer conexões.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Abr→Mai</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-8ef)">CICLO 2</div>
+            <div class="ciclo-name">Autoconhecimento e Organização</div>
+            <div class="ciclo-desc">Descobrir pontos fortes e organizar a rotina.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jun</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Aquecimento UMLO</div>
+            <div class="ciclo-desc">Preparação para o evento de julho.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jul</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">UMLO ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Ago→Set</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-8ef)">CICLO 3</div>
+            <div class="ciclo-name">Resiliência e Bem-Estar</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Out→Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-8ef)">CICLO 4</div>
+            <div class="ciclo-name">Curiosidade e Pensamento Crítico</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Apresentação Meu Alicerce</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9º EF -->
+    <div class="grade-block">
+      <div class="grade-block-header" style="background:var(--cor-ciclo-9ef)">
+        9º Ano · EF <span>Ensino Fundamental</span>
+      </div>
+      <div class="grade-block-body">
+        <div class="ciclo-row">
+          <div class="ciclo-period">Fev→Mar</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-9ef)">CICLO 1</div>
+            <div class="ciclo-name">Planejamento e Organização</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Abr→Mai</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-9ef)">CICLO 2</div>
+            <div class="ciclo-name">Criatividade e Solução de Problemas</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jun</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Bate-papo Vestibulinho ★</div>
+            <div class="ciclo-desc">Com aluno veterano.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jul</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">UMLO ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Ago→Set</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-9ef)">CICLO 3</div>
+            <div class="ciclo-name">Sustentabilidade e Impacto Social</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Out</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-9ef)">CICLO 4</div>
+            <div class="ciclo-name">Construindo o Amanhã</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Out</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Vestibulinho ✏</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Apresentação Meu EM · Devolutiva Vestibulinho</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1º EM -->
+    <div class="grade-block">
+      <div class="grade-block-header" style="background:var(--cor-ciclo-1em)">
+        1º Ano · EM <span>Ensino Médio</span>
+      </div>
+      <div class="grade-block-body">
+        <div class="ciclo-row">
+          <div class="ciclo-period">Fev→Mar</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-1em)">CICLO 1</div>
+            <div class="ciclo-name">Adaptação</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Abr→Mai</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-1em)">CICLO 2</div>
+            <div class="ciclo-name">Autoconhecimento</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jun</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Cine-Debate ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jun</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Evento Orientação Profissional ★</div>
+            <div class="ciclo-desc">Online · Guia de Carreiras.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jul</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">UMLO ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Ago→Set</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-1em)">CICLO 3</div>
+            <div class="ciclo-name">Consciência e Cuidado</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Set</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Evento Trilha Tech ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Out→Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-1em)">CICLO 4</div>
+            <div class="ciclo-name">Explorando Possibilidades</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">ENEM ✏</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Dez</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Apresentação TPV (Trabalho de Projeto de Vida)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2º EM -->
+    <div class="grade-block">
+      <div class="grade-block-header" style="background:var(--cor-ciclo-2em)">
+        2º Ano · EM <span>Ensino Médio</span>
+      </div>
+      <div class="grade-block-body">
+        <div class="ciclo-row">
+          <div class="ciclo-period">Fev→Mar</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-2em)">CICLO 1</div>
+            <div class="ciclo-name">Protagonismo e Liderança</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Abr→Mai</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-2em)">CICLO 2</div>
+            <div class="ciclo-name">Criatividade e Inovação</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Mai</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Conexão Profissão ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Jul</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">UMLO ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Ago→Set</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-2em)">CICLO 3</div>
+            <div class="ciclo-name">Carreira e Impacto Social</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Ago</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Universitário Responde ★</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Out→Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-num" style="background:var(--cor-ciclo-2em)">CICLO 4</div>
+            <div class="ciclo-name">Planejamento e Propósito</div>
+            <div class="ciclo-desc">Preparação para o 3º ano e vestibulares. Construção do TEP.</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Nov</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">ENEM + Vestibulares Treineiro ✏</div>
+          </div>
+        </div>
+        <div class="ciclo-row">
+          <div class="ciclo-period">Dez</div>
+          <div class="ciclo-info">
+            <div class="ciclo-name">Apresentação TEP (Trabalho de Escolha Profissional)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3º EM (full width) -->
+    <div class="grade-block" style="grid-column: 1 / -1;">
+      <div class="grade-block-header" style="background:var(--cor-ciclo-3em)">
+        3º Ano · EM <span>Ensino Médio · Ano de conclusão</span>
+      </div>
+      <div class="grade-block-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;">
+          <div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Mar→Abr</div>
+              <div class="ciclo-info">
+                <div class="ciclo-num" style="background:var(--cor-ciclo-3em)">CICLO 1</div>
+                <div class="ciclo-name">Planejamento do Futuro</div>
+                <div class="ciclo-desc">Metas de curto, médio e longo prazo.</div>
+              </div>
+            </div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Mai→Jun</div>
+              <div class="ciclo-info">
+                <div class="ciclo-num" style="background:var(--cor-ciclo-3em)">CICLO 2</div>
+                <div class="ciclo-name">Decisões Profissionais</div>
+                <div class="ciclo-desc">Cenários de carreira e próximos passos.</div>
+              </div>
+            </div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Jul</div>
+              <div class="ciclo-info">
+                <div class="ciclo-name">UMLO + Encontro de Vestibulandos ★</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Ago→Set</div>
+              <div class="ciclo-info">
+                <div class="ciclo-num" style="background:var(--cor-ciclo-3em)">CICLO 3</div>
+                <div class="ciclo-name">Pontes Para o Futuro</div>
+                <div class="ciclo-desc">Refletir sobre a jornada no EM.</div>
+              </div>
+            </div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Out→Nov</div>
+              <div class="ciclo-info">
+                <div class="ciclo-name">Vestibulares ✏</div>
+              </div>
+            </div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Nov</div>
+              <div class="ciclo-info">
+                <div class="ciclo-name">ENEM ✏</div>
+              </div>
+            </div>
+            <div class="ciclo-row">
+              <div class="ciclo-period">Dez</div>
+              <div class="ciclo-info">
+                <div class="ciclo-name">Confraternização + Formatura ★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /tab-ciclos -->
+
+</div><!-- /container -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
